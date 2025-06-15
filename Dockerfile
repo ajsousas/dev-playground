@@ -10,9 +10,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     wget \
     unzip \
     sudo \
-    xvfb \
-    x11vnc \
-    fluxbox \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -62,10 +59,7 @@ RUN code-server \
   --install-extension redhat.java \
   --extensions-dir /home/$DEV_USER/.vscode-server/extensions
 
-# Expose ports
+# Expose port for code-server
 EXPOSE 8080
-# For code-server (VS Code)
-EXPOSE 5900
-# For VNC
 
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]

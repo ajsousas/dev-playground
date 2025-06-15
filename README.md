@@ -7,8 +7,6 @@ This base image provides a foundation with:
 *   A Linux environment (Ubuntu)
 *   Git
 *   VS Code Server (code-server) - a web-based IDE
-*   Fluxbox window manager - a lightweight graphical interface
-*   VNC server - for remote access to the GUI
 
 The presenter will create a `Dockerfile` that builds upon this base, adding the necessary languages, libraries, and tools for the session. Participants simply need to obtain the `Dockerfile` and run it.
 
@@ -33,13 +31,10 @@ Think of it as a pre-packaged coding lab, ready to go with minimal effort!
 2.  **Run the Docker Container:**
 
     ```bash
-    docker run -d --name myDevPlayground -p 8080:8080 -p 5900:5900 dev-playground
+    docker run -d --name myDevPlayground -p 8080:8080 dev-playground
     ```
 
-    This command runs the Docker image in detached mode (`-d`) and maps the following ports:
-
-    *   `8080:8080`: Maps port 8080 on your host machine to port 8080 in the container (for VS Code Server).
-    *   `5900:5900`: Maps port 5900 on your host machine to port 5900 in the container (for the VNC server).
+    This command runs the Docker image in detached mode (`-d`) and maps port `8080:8080` from your host machine to the container (for VS Code Server).
 
 3.  **Access VS Code in Your Browser:**
 
@@ -51,19 +46,14 @@ Think of it as a pre-packaged coding lab, ready to go with minimal effort!
 
     You should see the VS Code interface running in your browser.
 
-4.  **Connect via VNC (Optional):**
+4.  **Cleanup When You're Done:**
 
-    To access the full desktop environment (Fluxbox), you can connect via VNC.
+    When you've finished working with the container, don't forget to stop and remove it to free up resources:
 
-    *   **Install a VNC Client:** If you don't already have one, install a VNC client on your system. Popular options include:
-        *   [Royal TSX - with Serial 2027](https://royalapps.com/) - Install it from 7.1 Self Service
-        *   [RealVNC Viewer](https://www.realvnc.com/en/connect/download/viewer/)
-        *   [TigerVNC](https://tigervnc.org/)
-        *   Remmina (Linux - available in most package managers)
-
-    *   **Connect to the VNC Server:** Open your VNC client and connect to `localhost:5900`. You should connect without needing a password.
-
-        **Warning:** Password authentication is disabled for VNC in this setup. This is *not* secure for production environments.
+    ```bash
+    docker stop myDevPlayground
+    docker rm myDevPlayground
+    ```
 
 ## Developing
 
@@ -73,11 +63,10 @@ Once you have the environment running, you can start developing:
 2.  **Create a new project or open an existing one.** You'll be working in the `/home/developer/app` directory inside the container.
 3.  **Write your Java/Spring code.**
 4.  **Use the VS Code terminal to compile and run your code using Maven or directly with `java`.**
-5.  **If you need a GUI application, connect via VNC and run it from the Fluxbox desktop.**
 
 ## Security Considerations
 
-*   **Authentication Disabled:** This environment has authentication disabled for both VS Code Server and VNC. This is convenient for a quick playground, but it's *not* secure for production use. If you plan to share this image or use it with sensitive data, you should enable authentication.
+*   **Authentication Disabled:** This environment has authentication disabled for VS Code Server. This is convenient for a quick playground, but it's *not* secure for production use. If you plan to share this image or use it with sensitive data, you should enable authentication.
 *   **Resource Limits:** Consider setting resource limits (CPU, memory) when running the container to prevent it from consuming too many resources on the host machine.
 
 ## Contributing
