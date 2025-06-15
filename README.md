@@ -16,11 +16,21 @@ Think of it as a pre-packaged coding lab, ready to go with minimal effort!
 
 ## Prerequisites
 
-*   [Docker](https://www.docker.com/) installed and running on your system (macOS, Windows, or Linux).
+*   [Git](https://git-scm.com/) installed on your system
+*   [Docker](https://www.docker.com/) installed and running on your system (macOS, Windows, or Linux)
 
 ## Usage
 
-1.  **Build the Docker Image:**
+1.  **Clone the Repository:**
+
+    ```bash
+    git clone git@github.com:ajsousas/dev-playground.git
+    cd dev-playground
+    ```
+
+    This command clones the repository and changes into the project directory.
+
+2.  **Build the Docker Image:**
 
     ```bash
     docker build --no-cache -t dev-playground .
@@ -28,7 +38,7 @@ Think of it as a pre-packaged coding lab, ready to go with minimal effort!
 
     This command builds the Docker image from the `Dockerfile` in the current directory. The `--no-cache` flag ensures that the image is built from scratch, avoiding any potential issues with cached layers.
 
-2.  **Run the Docker Container:**
+3.  **Run the Docker Container:**
 
     ```bash
     docker run -d --name myDevPlayground -p 8080:8080 dev-playground
@@ -36,7 +46,7 @@ Think of it as a pre-packaged coding lab, ready to go with minimal effort!
 
     This command runs the Docker image in detached mode (`-d`) and maps port `8080:8080` from your host machine to the container (for VS Code Server).
 
-3.  **Access VS Code in Your Browser:**
+4.  **Access VS Code in Your Browser:**
 
     Open your web browser and go to the following address:
 
@@ -46,7 +56,7 @@ Think of it as a pre-packaged coding lab, ready to go with minimal effort!
 
     You should see the VS Code interface running in your browser.
 
-4.  **Cleanup When You're Done:**
+5.  **Cleanup When You're Done:**
 
     When you've finished working with the container, don't forget to stop and remove it to free up resources:
 
